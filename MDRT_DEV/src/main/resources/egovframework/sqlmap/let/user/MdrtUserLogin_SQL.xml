@@ -7,7 +7,7 @@
 		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
 
 
-	<resultMap id="UserLogin" class="egovframework.mdrt.UserVo">
+	<resultMap id="UserLogin" class="egovframework.mdrt.vo.UserVo">
 		<result property="usrId" column="USR_ID" columnIndex="1" />
 		<result property="usrPw" column="USR_PW" columnIndex="2" />
 		<result property="usrNm" column="USR_NM" columnIndex="3" />
@@ -18,14 +18,17 @@
 		<result property="insUsr" column="INS_USR" columnIndex="8" />
 		<result property="regDate" column="REG_DATE" columnIndex="9" />
 		<result property="agrYn" column="AGR_YN" columnIndex="10" />
-
+	</resultMap>
+	
+	<resultMap id="UserLoginMap" class="egovMap">
+		<result property="usrId" column="USR_ID" columnIndex="1" />
 	</resultMap>
 
 
-	<select id="UserLoginDAO.getUserInfoOne" resultMap="UserLogin"
+	<select id="UserLoginDAO.getUserInfoOne" resultMap="UserLoginMap"
 		remapResults="true">
 
-		SELECT * FROM TB_MNG_USER where usr_id = #usrId# and usr_pw = #usrPw#;
+		SELECT * FROM TB_MNG_USER where usr_id = #usrId# and usr_pw = #usrPw# AND usr_yn='Y';
 
 	</select>
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
+
     <Appenders>
         <Console name="console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d %5p [%c] %m%n" />
@@ -22,5 +23,33 @@
         <Root level="ERROR">
             <AppenderRef ref="console" />
         </Root>
+        <logger name="java.sql.Connection" level="DEBUG" additivity="false">
+
+			<appender-ref ref="console" />
+
+		</logger>
+		
+		<logger name="java.sql.PreparedStatement" level="DEBUG" additivity="false">
+		
+			<appender-ref ref="console" />
+		
+		</logger>
+		
+		<logger name="java.sql.Statement" level="DEBUG" additivity="false">
+		
+			<appender-ref ref="console" />
+		
+		</logger>
+		
+		<!-- <logger name="java.sql.ResultSet" level="DEBUG" additivity="false">
+		
+			<appender-ref ref="console" />
+		
+		</logger> -->
+        
+        
     </Loggers>
+    
+    
+    
 </Configuration>

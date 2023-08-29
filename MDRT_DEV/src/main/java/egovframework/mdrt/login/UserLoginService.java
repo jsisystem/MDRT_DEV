@@ -13,31 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package egovframework.mdrt.login.service;
+package egovframework.mdrt.login;
 
 import java.util.List;
+import java.util.Map;
 
-import egovframework.mdrt.UserVo;
+import egovframework.mdrt.vo.UserVo;
 
 /**
  * @Class Name : EgovSampleService.java
  * @Description : EgovSampleService Class
  * @Modification Information
- * @
- * @  수정일      수정자              수정내용
- * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
+ * @ @ 수정일 수정자 수정내용 @ --------- --------- ------------------------------- @
+ *   2009.03.16 최초생성
  *
  * @author 개발프레임웍크 실행환경 개발팀
  * @since 2009. 03.16
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
+ * 		Copyright (C) by MOPAS All right reserved.
  */
 public interface UserLoginService {
-	
-	public List<UserVo> getUserInfoOne(UserVo userSearch) throws Exception;
-	
+
+	public Map<String, String> getUserInfoOne(UserVo userSearch) throws Exception;
 
 }

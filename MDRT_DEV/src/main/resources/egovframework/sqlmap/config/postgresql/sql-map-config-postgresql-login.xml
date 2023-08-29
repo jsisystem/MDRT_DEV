@@ -4,4 +4,48 @@
 
 <sqlMapConfig>
 	<sqlMap resource="egovframework/sqlmap/let/user/MdrtUserLogin_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtUserAutho_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtUserBusiAutho_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtBoard_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtBoardFile_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtBoardCom_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtBoardAlarm_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtUser_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtCode_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtCodeGeom_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtBusi_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndAccid_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndSysStab_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndOperEffic_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndBusiCurnt_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndRoutCurnt_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndSafeMng_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndCarbIdx_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndStationCurnt_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtIndUsrSatis_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataUploadList_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataVeicDrivFar_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataBusiFar_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataDrivRoutFar_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataBusStopFar_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataOtherBusiFar_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataCallRecDef_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataVeicDrivDef_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataDrivRoutDef_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataBusStopDef_SQL.xml"/>	
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtDataOtherBusiDef_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtUserApprList_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtReqData_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtProjectMng_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/let/user/MdrtAnlyModi_SQL.xml"/>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </sqlMapConfig>
