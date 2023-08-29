@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="AnlyModiDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+
+	<select id="AnlyModiDAO.getAnlyModiData" remapResults="true">
+
+		SELECT * FROM
+		TB_ANALY_MNG
+
+	</select>
+
+	<!-- 분석자료 등록요청 카운터 -->
+	<select id="AnlyModiDAO.getApprAnlyReqCnt" resultClass="egovMap">
+
+		select count(*) AS CNT FROM TB_ANALY_MNG A left join TB_REQ_DATA_LIST B on A.seq = B.seq  WHERE APPR_AUTH=#aprAuth#
+		AND APPR_USR IS null
+		<isEqual prepend="AND" property="aprAuth" compareValue="MNG">
+				<![CDATA[	B.APL_AREA = #aplArea# 		]]>
+		</isEqual>
+		;
+
+	</select>
+	<!-- 분석자료 요청 목록 -->
+	<!-- <select id="AnlyModiDAO.getApprReqCnt" resultClass="egovMap">
+
+		SELECT COUNT(*) AS CNT FROM TB_ANALY_MNG WHERE APR_AUTH=#aprAuth#
+		AND APR_USR IS NULL
+		<isEqual prepend="AND" property="aprAuth" compareValue="MNG">
+				<![CDATA[	APL_AREA = #aplArea# 		]]>
+		</isEqual>
+		;
+
+	</select> -->
+
+
+</sqlMap>            

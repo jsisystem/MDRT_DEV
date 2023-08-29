@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DataVeicDrivFarDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+	<resultMap id="UserLogin" class="egovframework.mdrt.vo.UserVo">
+		<result property="usrId" column="USR_ID" columnIndex="1" />
+		<result property="usrPw" column="USR_PW" columnIndex="2" />
+		<result property="usrNm" column="USR_NM" columnIndex="3" />
+		<result property="usrEm" column="USR_EM" columnIndex="4" />
+		<result property="usrBl" column="USR_BL" columnIndex="5" />
+		<result property="usrTel" column="USR_TEL" columnIndex="6" />
+		<result property="insDt" column="INS_DT" columnIndex="7" />
+		<result property="insUsr" column="INS_USR" columnIndex="8" />
+		<result property="regDate" column="REG_DATE" columnIndex="9" /> 
+		<result property="agrYn" column="AGR_YN" columnIndex="10" />
+
+	</resultMap>
+
+
+	<select id="DataVeicDrivFarDAO.getVeicDrivFar" remapResults="true">
+
+		SELECT * FROM DATA_VEIC_DRIV_LOG_FAR
+
+	</select>
+
+
+</sqlMap>            

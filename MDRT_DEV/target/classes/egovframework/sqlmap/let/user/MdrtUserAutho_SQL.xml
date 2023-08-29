@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserAuthoDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+	<resultMap id="UserAuth" class="egovframework.mdrt.vo.AuthVo">
+		<result property="usrId" column="USR_ID" columnIndex="1" />
+		<result property="cdId" column="CD_ID" columnIndex="2" />
+		<result property="cdGubun" column="CD_GUBUN" columnIndex="3" />
+		
+	</resultMap>
+	
+	<resultMap id="UserAuthMap" class="egovMap">
+		<result property="cdId" column="CD_ID" columnIndex="1" />
+		<result property="cdGubun" column="CD_GUBUN" columnIndex="2" />
+		
+	</resultMap>
+
+
+	<select id="userAuthoDAO.getAuthoList" resultMap="UserAuthMap"
+		remapResults="true">
+
+		SELECT * FROM TB_AUTH_MNG where usr_id = #usrId# AND INS_USR IS NOT NULL;
+
+	</select>
+	
+	<select id="userAuthoDAO.getAuthoAUTH" resultMap="UserAuthMap">
+
+		SELECT * 
+			FROM TB_AUTH_MNG 
+		WHERE 
+			usr_id = #usrId# AND
+			INS_USR IS NOT NULL AND
+			CD_GUBUN = #cdGubun#;
+
+	</select>
+	
+	
+	<insert id="userAuthoDAO.insertAuthoOne">
+
+		INSERT INTO 
+			TB_AUTH_MNG
+				(usr_id, cd_id, cd_gubun, ins_dt, ins_usr)
+		VALUES(#usrId#, #cdId#, #cdGubun#, now(), #insUsr#);
+
+
+	</insert>
+	
+	<update id="userAuthoDAO.updateAutho">
+
+		UPDATE 
+			TB_AUTH_MNG
+		SET
+			INS_USR = #insUsr#, INS_DT = NOW()
+		WHERE
+			USR_ID = #usrId#;
+
+	</update>
+
+
+</sqlMap>            

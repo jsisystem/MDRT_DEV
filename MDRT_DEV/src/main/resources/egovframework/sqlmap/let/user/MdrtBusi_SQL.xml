@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BusiDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+	<resultMap id="BusiList" class="egovMap">
+		<result property="mdrtCpId" column="MDRT_CP_ID" columnIndex="1" />
+		<result property="cdId" column="CD_ID" columnIndex="2" />
+		<result property="cdGubun" column="CD_GUBUN" columnIndex="3" />
+		<result property="mdrtCpNm" column="MDRT_CP_NM" columnIndex="4" />
+		<result property="mdrtCpAddr" column="MDRT_CP_ADDR"
+			columnIndex="5" />
+		<result property="mdrtCpTel" column="MDRT_CP_TEL"
+			columnIndex="6" />
+		<result property="lon" column="LON" columnIndex="8" />
+		<result property="lat" column="LAT" columnIndex="9" />
+		<result property="geom" column="GEOM" columnIndex="10" />
+		<result property="insDt" column="INS_dT" columnIndex="11" />
+	</resultMap>
+	
+	<resultMap id="BusiAreaList" class="egovMap">
+		<result property="cdId" column="CD_ID" columnIndex="2" />
+		<result property="cdGubun" column="CD_GUBUN" columnIndex="3" />
+		<result property="mdrtCpNm" column="MDRT_CP_NM" columnIndex="4" />
+	</resultMap>
+	
+	<resultMap id="BusiListMap" class="egovMap">
+		<result property="mdrtCpArea" column="MDRT_CP_AREA"
+			columnIndex="1" />
+		<result property="mdrtCpNm" column="MDRT_CP_NM" columnIndex="2" />
+		<result property="mdrtCpAddr" column="MDRT_CP_ADDR"
+			columnIndex="3" />
+		<result property="mdrtCpTel" column="MDRT_CP_TEL"
+			columnIndex="5" />
+		<result property="insDt" column="INS_dT" columnIndex="6" />	
+	</resultMap>
+
+
+	<select id="BusiDAO.getBusiList" remapResults="true"
+		resultMap="BusiListMap">
+
+		SELECT * FROM TB_BUSI_LIST
+		<isNotEmpty property="mdrtCpArea">
+				<![CDATA[	WHERE MDRT_CP_AREA =#mdrtCpArea#		]]>
+		</isNotEmpty>
+		ORDER BY INS_DT LIMIT 10 OFFSET (#pageNum# - 1) * 10;
+
+	</select>
+	
+	<select id="BusiDAO.getBusiListCount" resultClass="int">
+
+		SELECT count(*) FROM TB_BUSI_LIST
+		<isNotEmpty property="mdrtCpArea">
+				<![CDATA[	WHERE MDRT_CP_AREA =#mdrtCpArea#		]]>
+		</isNotEmpty>
+
+	</select>
+	
+
+	<insert id="BusiDAO.busiInsert">
+
+		INSERT INTO public.tb_busi_list
+		(mdrt_cp_id, cd_id,
+		cd_gubun, mdrt_cp_nm, mdrt_cp_addr, mdrt_cp_tel, mdrt_cp_area,
+		lon,
+		lat, geom, ins_dt,mdrtCpEmail)
+		VALUES(#mdrtCpId#, #cdId#, #cdGubun#, #mdrtCpNm#,
+		#mdrtCpAddr#, #mdrtCpTel#, #mdrtCpArea#, #lon#, #lat#, #geom#, now(),#mdrtCpEmail#);
+
+	</insert>
+
+	<select id="BusiDAO.getBusiListArea" remapResults="true"
+		resultMap="BusiAreaList">
+
+		SELECT * FROM TB_BUSI_LIST WHERE MDRT_CP_AREA = #mdrtCpArea#;
+
+	</select>
+</sqlMap>            

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="DataUploadListDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+	<resultMap id="dataUpdVo" class="egovMap">
+		<result property="dataUldIdx" column="DATA_ULD_IDX" columnIndex="1" />
+		<result property="dataUldPk" column="DATA_ULD_PK" columnIndex="2" />
+		<result property="mdrtCpNm" column="MDRT_CP_NM" columnIndex="3" />
+		<result property="mdrtAreaNm" column="MDRT_AREA_NM" columnIndex="4" />
+		<result property="dataGubun" column="DATA_GUBUN" columnIndex="5" />
+		<result property="tableGubun" column="TABLE_GUBUN" columnIndex="6" />
+		<result property="dataYear" column="DATA_YEAR" columnIndex="7" />
+		<result property="dataMon" column="DATA_MON" columnIndex="8" />
+		<result property="aprAgnc" column="APR_AGNC" columnIndex="9" />
+		<result property="rejResn" column="REJ_RESN" columnIndex="10" />
+		<result property="insDt" column="INS_DT" columnIndex="11" />
+		<result property="indUsr" column="IND_USR" columnIndex="12" />
+		<result property="aprUsr" column="APR_USR" columnIndex="13" />
+		<result property="aprDt" column="APR_DT" columnIndex="14" />
+	</resultMap>
+
+
+	<select id="DataUploadListDAO.getDataUploadList"  resultMap="dataUpdVo" remapResults="true">
+
+		SELECT DATA_ULD_IDX,DATA_ULD_PK::timestamp, MDRT_CP_NM, MDRT_AREA_NM, DATA_GUBUN, TABLE_GUBUN, DATA_YEAR, DATA_MON, APR_AGNC, REJ_RESN, INS_DT, IND_USR, APR_USR, APR_DT
+		FROM DATA_UPLOAD_LIST
+
+	</select>
+
+
+</sqlMap>            

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CodeDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+		
+	<resultMap id="CodeVo" class="egovframework.mdrt.vo.CodeVo">
+		<result property="cdId" column="CD_ID" columnIndex="1" />
+		<result property="cdGubun" column="CD_GUBUN" columnIndex="2" />
+		<result property="parentCd" column="PARENT_CD" columnIndex="3" />
+		<result property="cdNm" column="CD_NM" columnIndex="4" />
+		<result property="cdDt" column="CD_DT" columnIndex="5" />
+		<result property="useYn" column="USE_YN" columnIndex="6" />
+		<result property="insDt" column="INS_DT" columnIndex="7" />
+		<result property="insUsr" column="INS_USR" columnIndex="8" />
+		
+	</resultMap>
+
+
+	<resultMap id="CodeVoMap" class="egovMap">
+		<result property="cdId" column="CD_ID" columnIndex="1" />
+		<result property="cdGubun" column="CD_GUBUN" columnIndex="2" />
+		<result property="cdNm" column="CD_NM" columnIndex="4" />
+		<result property="cdDt" column="CD_DT" columnIndex="5" />
+	</resultMap>
+	
+	
+	<select id="CodeDAO.getCodeList" resultMap="CodeVoMap"
+		remapResults="true">
+
+		SELECT * FROM
+		TB_SYS_CODE WHERE USE_YN ='Y';
+
+	</select>
+
+
+	<select id="CodeDAO.getCodeSelectList"  resultMap="CodeVoMap"
+		remapResults="true">
+
+		SELECT *
+		FROM TB_SYS_CODE WHERE CD_GUBUN = #cdGubun# AND USE_YN ='Y';
+
+	</select>
+
+	<update id="CodeDAO.codeUpdate">
+
+		UPDATE TB_SYS_CODE SET CD_GUBUN = #cdGubun#
+		,PARENT_CD = #parentCd# ,CD_NM = #cdNm#, CD_DT = #cdDt#
+		WHERE
+		CD_ID = #cdId#;
+
+	</update>
+
+	<update id="CodeDAO.codeDelete">
+
+		UPDATE TB_SYS_CODE SET USE_YN = 'N'
+		WHERE
+		CD_ID = #cdId#;
+
+	</update>
+
+	<insert id="CodeDAO.codeInsert">
+
+		INSERT INTO public.tb_sys_code
+		(cd_id, cd_gubun,
+		parent_cd, cd_nm, cd_dt, use_yn, ins_dt, ins_usr)
+		VALUES(#cdId#,
+		#cdGubun#, #parentCd#, #cdNm#, #cdDt#, 'Y', now(), #insUsr#);
+
+
+	</insert>
+	
+	<select id="CodeDAO.getCodeKrNm"  resultClass="String">
+
+		SELECT cd_nm
+		FROM TB_SYS_CODE WHERE CD_ID = #cdId#;
+
+	</select>
+	
+	
+
+
+
+</sqlMap>            

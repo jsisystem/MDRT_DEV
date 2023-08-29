@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BoardComDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+	<resultMap id="BoardAlarmList" class="egovframework.mdrt.vo.BoardAlarmVo">
+		<result property="bordLogId" column="BORD_LOG_ID" columnIndex="1" />
+		<result property="bordId" column="BORD_ID" columnIndex="2" />
+		<result property="usrId" column="USR_ID" columnIndex="3" />
+		<result property="bordGubun" column="BORD_GUBUN" columnIndex="4" />
+		<result property="notiCnt" column="NOTI_CNT" columnIndex="5" />
+		<result property="quesCnt" column="QUES_CNT" columnIndex="7" />
+		<result property="erroCnt" column="ERRO_CNT" columnIndex="8" />
+		<result property="userNotiCnt" column="USER_NOTI_CNT" columnIndex="9" />
+		<result property="userQuesCnt" column="USER_QUES_CNT" columnIndex="10" />
+		<result property="userErroCnt" column="USER_ERRO_CNT" columnIndex="11" />
+	</resultMap>
+	<resultMap id="BoardAlarmInfo" class="egovframework.mdrt.vo.BoardAlarmVo">
+	
+		<result property="notiCnt" column="NOTI_CNT" columnIndex="1" />
+		<result property="quesCnt" column="QUES_CNT" columnIndex="2" />
+		<result property="erroCnt" column="ERRO_CNT" columnIndex="3" />
+		<result property="userNotiCnt" column="NOTI_USR_ID_CNT" columnIndex="4" />
+		<result property="userQuesCnt" column="QUES_USR_ID_CNT" columnIndex="5" />
+		<result property="userErroCnt" column="ERRO_USR_ID_CNT" columnIndex="6" />
+	</resultMap>
+	
+
+
+	<select id="BoardAlarmDAO.getBoardAlarmList" resultMap="BoardAlarmList"
+		remapResults="true">
+
+		SELECT * FROM TB_BOARD_ALARM
+
+	</select>
+	
+	<select id="BoardAlarmDAO.getBoardAlarmInfo" resultMap="BoardAlarmInfo"
+		remapResults="true">
+
+		SELECT DISTINCT(SELECT COUNT(*) FROM TB_BOARD_ALARM WHERE USR_ID = #usrId# AND BORD_GUBUN='erro') AS ERRO_USR_ID_CNT,
+			   (SELECT COUNT(*) FROM TB_BOARD_ALARM WHERE USR_ID = #usrId# AND BORD_GUBUN='ques') AS QUES_USR_ID_CNT,
+			   (SELECT COUNT(*) FROM TB_BOARD_ALARM WHERE USR_ID = #usrId# AND BORD_GUBUN='noti') AS NOTI_USR_ID_CNT, 
+			   	A.BORD_GUBUN,
+			   	(SELECT COUNT(*) FROM TB_BOARD where BORD_GUBUN ='noti') AS NOTI_CNT, 
+			   	(SELECT COUNT(*) FROM TB_BOARD where BORD_GUBUN ='ques' ) AS QUES_CNT, 
+			   	(SELECT COUNT(*) FROM TB_BOARD where BORD_GUBUN ='erro') AS ERRO_CNT 
+			   	
+			   	FROM  TB_BOARD A LEFT JOIN TB_BOARD_ALARM B ON A.BORD_ID = B.BORD_ID 
+			    WHERE B.USR_ID = #usrId#;
+
+	</select>
+	
+	
+
+
+</sqlMap>            

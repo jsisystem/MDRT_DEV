@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="ReqDataDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+
+
+
+	<select id="ReqDataDAO.getReqData" remapResults="true">
+
+		SELECT * FROM
+		TB_REQ_DATA_LIST
+
+	</select>
+
+	<!-- 분석자료 요청 카운터 -->
+	<select id="ReqDataDAO.getApprReqCnt" resultClass="egovMap">
+
+		SELECT COUNT(*) AS CNT FROM TB_REQ_DATA_LIST WHERE APR_AUTH=#aprAuth#
+		AND APR_USR IS NULL
+		<isEqual prepend="AND" property="aprAuth" compareValue="MNG">
+				<![CDATA[	APL_AREA = #aplArea# 		]]>
+		</isEqual>
+		;
+
+	</select>
+	<!-- 분석자료 요청 목록 -->
+	<select id="ReqDataDAO.getApprReq" resultClass="egovMap">
+
+		SELECT COUNT(*) AS CNT FROM TB_REQ_DATA_LIST WHERE APR_AUTH=#aprAuth#
+		AND APR_USR IS NULL
+		<isEqual prepend="AND" property="aprAuth" compareValue="MNG">
+				<![CDATA[	APL_AREA = #aplArea# 		]]>
+		</isEqual>
+		;
+
+	</select>
+
+	<!-- 분석자료 요청 등록 -->
+	<insert id="ReqDataDAO.reqDataInsert">
+
+		INSERT INTO TB_REQ_DATA_LIST
+(seq, data_dt, apl_sql, apl_area, apl_id, apl_dt, apl_cp, apr_usr, apr_dt, apr_auth, apl_area_cnt)
+VALUES(0, '', ?, '', '', '', '', '', '', '', 0);
+		
+
+	</insert>
+
+
+
+
+
+
+
+</sqlMap>            

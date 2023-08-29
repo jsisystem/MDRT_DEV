@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="userBusiAuthoDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+<!-- 	<resultMap id="UserAuth" class="egovframework.mdrt.AuthVo">
+		<result property="usrId" column="USR_ID" columnIndex="1" />
+		<result property="cdId" column="CD_ID" columnIndex="2" />
+		<result property="cdGubun" column="CD_GUBUN" columnIndex="3" />
+		<result property="insDt" column="INS_DT" columnIndex="4" />
+		<result property="insUsr" column="INS_USR" columnIndex="5" />
+		
+
+	</resultMap> -->
+
+
+	<select id="userBusiAuthoDAO.getUserBusiAuthoOne" remapResults="true">
+
+		SELECT * FROM TB_AUTH_BUSI;
+
+	</select>
+
+
+</sqlMap>            

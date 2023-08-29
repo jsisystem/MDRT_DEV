@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="UserDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+	<resultMap id="UserVoMap" class="egovMap">
+		<result property="usrId" column="USR_ID" columnIndex="1" />
+		<result property="usrPw" column="USR_PW" columnIndex="2" />
+		<result property="usrNm" column="USR_NM" columnIndex="3" />
+		<result property="usrEm" column="USR_EM" columnIndex="4" />
+		<result property="usrBl" column="USR_BL" columnIndex="5" />
+		<result property="usrTel" column="USR_TEL" columnIndex="6" />
+		<result property="agrYn" column="AGR_YN" columnIndex="7" />
+		
+	</resultMap>
+	
+		<resultMap id="UserVoMapM" class="egovMap">
+		<result property="cdId" column="CD_ID" columnIndex="1" />
+		<result property="usrArea" column="USR_AREA" columnIndex="2" />
+		<result property="usrNm" column="USR_NM" columnIndex="3" />
+		<result property="usrId" column="USR_ID" columnIndex="4" />
+		<result property="usrBl" column="USR_BL" columnIndex="5" />
+		<result property="usrEm" column="USR_EM" columnIndex="7" />
+		<result property="insDt" column="INS_DT" columnIndex="8" />
+		<result property="usrYn" column="USR_YN" columnIndex="9" />
+	</resultMap>
+	
+	<resultMap id="UserVoLogin" class="egovMap">
+		<result property="usrId" column="USR_ID" columnIndex="1" />
+		<result property="usrPw" column="USR_PW" columnIndex="2" />
+		<result property="usrNm" column="USR_NM" columnIndex="3" />
+		<result property="usrEm" column="USR_EM" columnIndex="4" />
+		<result property="usrBl" column="USR_BL" columnIndex="5" />
+		<result property="usrTel" column="USR_TEL" columnIndex="6" />
+		<result property="insDt" column="INS_DT" columnIndex="7" />
+		<result property="insUsr" column="INS_USR" columnIndex="8" />
+		<result property="regDate" column="REG_DATE" columnIndex="9" />
+		<result property="agrYn" column="AGR_YN" columnIndex="10" />
+		<result property="usrYn" column="USR_YN" columnIndex="11" />
+		<result property="useYn" column="USE_YN" columnIndex="12" />
+		
+	</resultMap>
+
+
+
+
+<!-- 사용자 전체 목록 조회 -->
+	<select id="UserDAO.getUserList" resultMap="UserVoMapM"
+		remapResults="true">
+
+		SELECT B.cd_id , A.usr_area, A.usr_nm, A.usr_id, usr_bl, USR_EM, A.ins_dt ,A.usr_yn  FROM TB_MNG_USER A left join tb_auth_mng B on A.usr_id =B.usr_id  
+		WHERE USE_YN = 'Y'  AND CD_GUBUN ='AUTH' 
+		<isNotEmpty property="searchUsrYn">
+				<![CDATA[	AND USR_YN =#searchUsrYn#		]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchUsrArea">
+				<![CDATA[	AND USR_AREA =#searchUsrArea#		]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchAuth">
+				<![CDATA[	AND CD_ID=#searchAuth# 	]]>
+		</isNotEmpty>
+		group by B.usr_id, A.usr_id , B.cd_id  
+		ORDER BY A.INS_DT LIMIT 10 OFFSET (#pageNum# - 1) * 10;
+	</select>
+	
+	<select id="UserDAO.getUserListCount"  resultClass="int">
+		SELECT COUNT(*)  FROM TB_MNG_USER A left join tb_auth_mng B on A.usr_id = B.usr_id  
+		WHERE USE_YN = 'Y'  AND CD_GUBUN ='AUTH' 
+		<isNotEmpty property="searchUsrYn">
+				<![CDATA[	AND USR_YN =#searchUsrYn#		]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchUsrArea">
+				<![CDATA[	AND USR_AREA =#searchUsrArea#		]]>
+		</isNotEmpty>
+		<isNotEmpty property="searchAuth">
+				<![CDATA[	AND CD_ID=#searchAuth# 	]]>
+		</isNotEmpty>
+		
+	</select>
+<!-- 사용자 단일  조회 -->
+	<select id="UserDAO.getUserOne" resultMap="UserVoMap"
+		remapResults="true">
+
+		SELECT * FROM TB_MNG_USER WHERE USR_ID= #usrId# AND
+		USR_YN = 'Y' AND USE_YN = 'Y';
+
+	</select>
+
+<!-- 사용자 등록 (승인 전 상태) -->
+	<insert id="UserDAO.insrtUser">
+
+		INSERT INTO 
+			TB_MNG_USER
+			(usr_id, usr_pw, usr_nm, usr_em, usr_bl, usr_tel, ins_dt, ins_usr, reg_date, agr_yn, usr_yn, use_yn, usr_area) 
+		VALUES 
+			(#usrId#,#usrPw#,#usrNm#,#usrEm#,#usrBl#,#usrTel#,NOW(),#insUsr#,'',#agrYn#,'','Y',#usrArea#);
+			
+
+
+
+			
+
+	</insert>
+<!-- 사용자 삭제 계정 삭제  단일-->
+	<update id="UserDAO.deleteUser">
+
+		UPDATE TB_MNG_USER SET USE_YN = 'N'
+		WHERE 
+			USR_ID = #usrId#;
+
+	</update>
+	
+	<!-- 사용자 정보 수정 (수정필요) 아이디/암호/이름은 변경 불가-->
+	<update id="UserDAO.updateUser">
+
+		UPDATE TB_MNG_USER SET USR_EM=#usrEm#, USR_BL=#usrBl#, USR_TEL=#usrTel# WHERE USR_ID = #usrId#;
+
+	</update>
+	
+	<!-- 사용자 단일 승인  -->
+	
+	<update id="UserDAO.updateAppr">
+
+		UPDATE 
+			TB_MNG_USER 
+		SET 
+			INS_USR = #insUsr#,
+			REG_DATE = TO_CHAR(NOW(),'YYYY-MM-DD'),
+			USR_YN = #usrYn#
+		WHERE 
+			USR_ID = #usrId#;
+
+	</update>
+	
+	<!-- 계정 중복확인 -->
+
+	<select id="UserDAO.getCheckId" resultClass="int">
+
+		SELECT count(*) FROM TB_MNG_USER WHERE USR_ID= #usrId# 
+		
+
+	</select>
+
+
+
+</sqlMap>            

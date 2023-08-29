@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="BoardDAO">
+
+	<typeAlias alias="egovMap"
+		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
+
+
+	<resultMap id="BoardList" class="egovframework.mdrt.vo.BoardVo">
+		<result property="bordId" column="BORD_ID" columnIndex="1" />
+		<result property="bordGubun" column="BORD_GUBUN" columnIndex="2" />
+		<result property="bordTit" column="BORD_TIT" columnIndex="3" />
+		<result property="bordCont" column="BORD_CONT" columnIndex="4" />
+		<result property="insUsr" column="INS_USR" columnIndex="5" />
+		<result property="insDt" column="INS_DT" columnIndex="6" />
+		
+	</resultMap>
+
+
+	<select id="BoardDAO.getBoardList" resultMap="BoardList"
+		remapResults="true">
+
+		SELECT * FROM TB_BOARD
+
+	</select>
+
+
+</sqlMap>            
