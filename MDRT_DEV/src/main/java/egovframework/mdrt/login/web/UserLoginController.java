@@ -7,22 +7,15 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.synth.SynthSplitPaneUI;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-import org.stringtemplate.v4.compiler.STParser.mapExpr_return;
 
 import egovframework.mdrt.autho.UserAuthoService;
 import egovframework.mdrt.board.BoardAlarmService;
 import egovframework.mdrt.login.UserLoginService;
 import egovframework.mdrt.project.AnlyModiService;
-import egovframework.mdrt.project.ProjectMngService;
 import egovframework.mdrt.project.ReqDataService;
 import egovframework.mdrt.vo.AuthVo;
 import egovframework.mdrt.vo.BoardAlarmVo;
@@ -79,6 +72,11 @@ public class UserLoginController {
 				Map<String, String> authGubun =  userAuthoService.getAuthoGubun(param); //권한 조회 param : userid, Authgubun code
 				List<Map>  AuthList =  userAuthoService.getAuthoList(userVo.get("usrId")); //권한 조회
 				BoardAlarmVo boardAlarmVo = boardAlarmService.getBoardAlarmInfo(userVo.get("usrId")); //보드 알림 조회
+				
+				session.setAttribute("UsrId", param.getUsrId());
+				session.setAttribute("UsrAuth", AuthList);
+				
+				
 				
 				Map<String,Integer> alarm = new HashMap<String,Integer>();
 				alarm.put("UserNotiCnt", boardAlarmVo.getNotiCnt()-boardAlarmVo.getUserNotiCnt());

@@ -7,30 +7,61 @@
 		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
 
 
-	<resultMap id="dataUpdVo" class="egovMap">
-		<result property="dataUldIdx" column="DATA_ULD_IDX" columnIndex="1" />
-		<result property="dataUldPk" column="DATA_ULD_PK" columnIndex="2" />
-		<result property="mdrtCpNm" column="MDRT_CP_NM" columnIndex="3" />
-		<result property="mdrtAreaNm" column="MDRT_AREA_NM" columnIndex="4" />
-		<result property="dataGubun" column="DATA_GUBUN" columnIndex="5" />
-		<result property="tableGubun" column="TABLE_GUBUN" columnIndex="6" />
-		<result property="dataYear" column="DATA_YEAR" columnIndex="7" />
-		<result property="dataMon" column="DATA_MON" columnIndex="8" />
-		<result property="aprAgnc" column="APR_AGNC" columnIndex="9" />
-		<result property="rejResn" column="REJ_RESN" columnIndex="10" />
-		<result property="insDt" column="INS_DT" columnIndex="11" />
-		<result property="indUsr" column="IND_USR" columnIndex="12" />
-		<result property="aprUsr" column="APR_USR" columnIndex="13" />
-		<result property="aprDt" column="APR_DT" columnIndex="14" />
-	</resultMap>
 
+	<select id="DataUploadListDAO.getDataUploadList" resultClass="egovMap" remapResults="true">
 
-	<select id="DataUploadListDAO.getDataUploadList"  resultMap="dataUpdVo" remapResults="true">
-
-		SELECT DATA_ULD_IDX,DATA_ULD_PK::timestamp, MDRT_CP_NM, MDRT_AREA_NM, DATA_GUBUN, TABLE_GUBUN, DATA_YEAR, DATA_MON, APR_AGNC, REJ_RESN, INS_DT, IND_USR, APR_USR, APR_DT
+		SELECT DATA_ULD_IDX,DATA_ULD_PK::timestamp, MDRT_CP_NM, MDRT_AREA_NM, DATA_GUBUN, TABLE_GUBUN, DATA_YEAR, DATA_MON, APR_AGNC, REJ_RESN, APR_DT
 		FROM DATA_UPLOAD_LIST
+		WHERE MDRT_CP_NM =  #mdrtCpNm# and MDRT_AREA_NM = #mdrtAreaNm# and DATA_YEAR = #dataYear# and DATA_MON = #dataMon#		
+	</select>
+	
+	<select id="DataUploadListDAO.getDataUploadDetail" resultClass="egovMap" remapResults="true" >
+		SELECT $colsql$
+		FROM $tableGubun$
+		WHERE DATA_ULD_IDX =  #dataUldIdx#
+	</select>
+	
+	<select id="DataUploadListDAO.getDataUploadColList" resultClass="egovMap"  remapResults="true" >
+		SELECT column_name
+ 		FROM INFORMATION_SCHEMA.COLUMNS
+ 		WHERE TABLE_CATALOG = 'mdrt'
+   		AND TABLE_NAME    = #tableGubun#
+ 		ORDER BY ORDINAL_POSITION;
+	</select>
+	
+		<!-- 사용자 정보 수정 (수정필요) 아이디/암호/이름은 변경 불가-->
+	<update id="DataUploadListDAO.getDataUploadAppr">
+
+		UPDATE DATA_UPLOAD_LIST SET APR_USR = #usrId#, APR_DT = NOW(), APR_AGNC = 'Y' WHERE DATA_ULD_IDX =  #dataUldIdx#
+
+	</update>
+	
+	<select id="DataUploadListDAO.getApprDataMv"  resultClass="egovMap" remapResults="true">
+
+		SELECT data_uld_idx, data_uld_pk, mdrt_cp_nm, mdrt_area_nm, data_gubun, table_gubun, data_year, data_mon, apr_agnc, rej_resn, ins_dt,ind_usr, apr_usr,apr_dt
+		FROM
+			data_upload_list 
+		WHERE 
+			1=1
+		AND
+			DATA_ULD_IDX = #dataUldIdx#
 
 	</select>
-
+	
+	<insert id="DataUploadListDAO.insertUploadList">
+		INSERT INTO
+			data_upload_list
+			(data_uld_pk, mdrt_cp_nm, mdrt_area_nm, data_gubun, table_gubun, data_year, data_mon, apr_agnc, rej_resn, ins_dt,ind_usr, apr_usr,apr_dt)
+		VALUES(#dataUldPk#, #mdrtCpNm#, #mdrtAreaNm#, #dataGubun#, #tableGubun#, #dataYear#, #dataMon#, #aprAgnc#, #rejResn#, #insDt#, #indUsr#, #aprUsr#, #aprDt#)
+	</insert>
+	
+	<insert id="DataUploadListDAO.insertUploadDef">
+		INSERT INTO
+			$tableGubun$
+			($colsql$)
+		VALUES(#dataUldPk#, #mdrtCpNm#, #mdrtAreaNm#, #dataGubun#, #tableGubun#, #dataYear#, #dataMon#, #aprAgnc#, #rejResn#, #insDt#, #indUsr#, #aprUsr#, #aprDt#)
+	</insert>
+	
+	
 
 </sqlMap>            

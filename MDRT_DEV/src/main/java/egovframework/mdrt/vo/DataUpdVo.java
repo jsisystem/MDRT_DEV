@@ -18,6 +18,7 @@ public class DataUpdVo {
 	private String indUsr;
 	private String aprUsr;
 	private Timestamp aprDt;
+	private String colsql;
 	
 	
 	
@@ -104,6 +105,12 @@ public class DataUpdVo {
 	}
 	public void setAprDt(Timestamp aprDt) {
 		this.aprDt = aprDt;
+	}
+	public String getColsql() {
+		return colsql;
+	}
+	public void setColsql(String colsql) {
+		this.colsql = colsql;
 	}
 	
 	

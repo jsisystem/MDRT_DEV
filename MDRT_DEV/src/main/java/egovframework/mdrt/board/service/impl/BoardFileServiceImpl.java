@@ -1,6 +1,7 @@
 package egovframework.mdrt.board.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -22,6 +23,12 @@ public class BoardFileServiceImpl extends EgovAbstractServiceImpl implements Boa
 	@Override
 	public List<BoardFileVo> getBoardFileList() throws Exception {
 		return boardFileDAO.getBoardFileList();
+	}
+
+
+	@Override
+	public List<Map> getBoardFileList(Map<String, Object> mapVo) {
+		return boardFileDAO.getBoardFileList(mapVo);
 	}
 
 

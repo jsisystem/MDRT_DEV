@@ -59,7 +59,6 @@ public class UserController {
 
 				resultSummary.get(index).put("AUTH",
 						codeService.getCodeKrNm(resultSummary.get(index).get("cdId").toString()));
-				break;
 
 			}
 

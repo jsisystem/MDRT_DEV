@@ -22,7 +22,7 @@ import egovframework.mdrt.vo.UserVo;
 
 @RestController
 @RequestMapping(value="/data/dataFar")
-public class DataDrivRoutFarController {
+public class DataRoutInfoFarController {
 	
 	
 	
@@ -30,23 +30,5 @@ public class DataDrivRoutFarController {
 	protected DataDrivRoutFarService dataDrivRoutFarService;
 	
 		
-	@RequestMapping(value = "/dataDrivRoutFar.json")
-	public ModelAndView dataDrivRoutFarData(HttpServletRequest request,HttpSession session, @RequestBody UserVo userSearch) throws Exception {
-		ModelAndView modelAndView = new ModelAndView();
-		try {
-		
-		List<UserVo> resultSummary = dataDrivRoutFarService.getDataDrivRoutFar(userSearch);           //사용자 조회
-		
-		
-		
-		modelAndView.addObject("resultList", resultSummary);
-		modelAndView.setViewName("jsonView");
-		
-		
-		}catch(Exception e){
-			System.out.println(e);
-		}
-
-		return modelAndView;
-	}
+	
 }

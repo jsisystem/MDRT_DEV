@@ -72,12 +72,12 @@ public class BusiController {
 			codeVo.setParentCd("BUSI");
 			codeVo.setCdNm(busiVo.getMdrtCpNm());
 			codeVo.setCdDt("업체 정보");
-			//TODO 세션에서 아이디 가져와서 INS_USR 등록
+			//TODO 세션에서 아이디 가져와서 INS_USR 등록 세션사용안할경우 userId 를 파라미터로 수집
 			codeVo.setInsUsr("system");
 			
 			codeService.codeInsert(codeVo);
 			
-			//TODO LON,LAT 합쳐서 POINT 만들고 GEOM 입력
+			//TODO LON,LAT 합쳐서 POINT 만들고 GEOM 입력 데이터 있어야 가능
 			busiService.busiInsert(busiVo);
 
 

@@ -39,7 +39,7 @@ import egovframework.mdrt.vo.UserVo;
  */
 public interface ReqDataService {
 	
-	public List<UserVo> getReqData(UserVo userSearch) throws Exception;
+	public List<Map> getReqData(UserVo userSearch) throws Exception;
 	
 	public List<UserVo> getReqDataCnt(UserVo userSearch) throws Exception;
 	

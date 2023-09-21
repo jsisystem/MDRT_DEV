@@ -1,6 +1,7 @@
 package egovframework.mdrt.project.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,13 +34,14 @@ public class ReqDataController {
 	@Resource(name = "ReqDataService")
 	protected ReqDataService reqDataService;
 	
-		
+	
+	//분석자료 요청 목록 조회ㅣ	
 	@RequestMapping(value = "/userReqData.json")
 	public ModelAndView reqData(HttpServletRequest request,HttpSession session, @RequestBody UserVo userSearch) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
 		
-		List<UserVo> resultSummary = reqDataService.getReqData(userSearch);           
+			List<Map> resultSummary = reqDataService.getReqData(userSearch);           
 		
 		
 		
@@ -54,6 +56,7 @@ public class ReqDataController {
 		return modelAndView;
 	}
 	
+	//요청하기 버튼 클릭시 동작
 	@RequestMapping(value = "/reqDataInsert.json")
 	public ModelAndView reqDataInsert(HttpServletRequest request,HttpSession session, @RequestBody ReqDataVo reqDataVo) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
@@ -73,5 +76,7 @@ public class ReqDataController {
 
 		return modelAndView;
 	}
+	
+	
 	
 }

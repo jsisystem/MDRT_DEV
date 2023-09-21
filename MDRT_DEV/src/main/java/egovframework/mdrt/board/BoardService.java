@@ -16,8 +16,8 @@
 package egovframework.mdrt.board;
 
 import java.util.List;
+import java.util.Map;
 
-import egovframework.mdrt.vo.BoardVo;
 
 /**
  * @Class Name : EgovSampleService.java
@@ -37,7 +37,16 @@ import egovframework.mdrt.vo.BoardVo;
  */
 public interface BoardService {
 	
-	public List<BoardVo> getBoardList() throws Exception;
+	public List<Map> getBoardList(Map<String, Object> mapVo) throws Exception;
+
+	public int getBoardListCount(Map<String, Object> mapVo);
+
+	public Map<String, Object> getBoardDetail(Map<String, Object> mapVo);
+
+	public void getUpdateBordCnt(Map<String, Object> mapVo);
+
+	public void getBoardInsert(Map<String, Object> mapVo);
+
 	
 
 }

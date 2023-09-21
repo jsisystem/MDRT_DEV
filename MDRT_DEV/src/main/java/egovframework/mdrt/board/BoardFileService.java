@@ -16,6 +16,7 @@
 package egovframework.mdrt.board;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.mdrt.vo.BoardFileVo;
 
@@ -38,6 +39,8 @@ import egovframework.mdrt.vo.BoardFileVo;
 public interface BoardFileService {
 	
 	public List<BoardFileVo> getBoardFileList() throws Exception;
+
+	public List<Map> getBoardFileList(Map<String, Object> mapVo);
 	
 
 }

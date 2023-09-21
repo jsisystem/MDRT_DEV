@@ -116,7 +116,7 @@ public class CodeController {
 			throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			//TODO 세션에서 아이디 받고 INS_USR 채워야함
+			//TODO 세션에서 아이디 가져와서 INS_USR 등록 세션사용안할경우 userId 를 파라미터로 수집
 			
 
 			//modelAndView.addObject("resultMsg", dbMSG);

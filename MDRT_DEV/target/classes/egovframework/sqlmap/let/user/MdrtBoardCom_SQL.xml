@@ -19,12 +19,18 @@
 	</resultMap>
 
 
-	<select id="BoardComDAO.getBoardComList" resultMap="BoardComList"
-		remapResults="true">
+	<select id="BoardComDAO.getBoardComList" resultClass="egovMap" remapResults="true">
 
-		SELECT * FROM TB_BOARD_COM
+		SELECT comt_cont, ins_dt,ins_usr FROM TB_BOARD_COM WHERE BORD_ID = #bordId#
 
 	</select>
+	
+		<insert id="BoardComDAO.getBoardComInsert">
 
+		INSERT INTO TB_BOARD_COM
+		(bord_id,bord_gubun,comt_seq,comt_cont,ins_usr)
+		VALUES(#bordId#,#bordGubun#,(select coalesce(max(comt_seq), 0) from TB_BOARD_COM WHERE bord_id = #bordId#)+1,#comtCont#,#usrId#)
+
+	</insert>
 
 </sqlMap>            

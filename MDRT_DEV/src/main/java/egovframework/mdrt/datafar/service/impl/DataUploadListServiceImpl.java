@@ -20,8 +20,20 @@ public class DataUploadListServiceImpl extends EgovAbstractServiceImpl implement
 
 	
 	@Override
-	public List<Map> getDataUploadList(DataUpdVo dataUpdVo) throws Exception {
-		return DataUploadListDAO.getDataUploadList(dataUpdVo);
+	public List<Map> getDataUploadList(Map<String, String>map) throws Exception {
+		return DataUploadListDAO.getDataUploadList(map);
+	}
+
+
+	@Override
+	public List<Map> getDataUploadDetail(DataUpdVo dataUpdSearch) throws Exception {
+		return DataUploadListDAO.getDataUploadDetail(dataUpdSearch);
+	}
+
+
+	@Override
+	public void dataUploadAppr(Map<String, Object> map) throws Exception {
+		DataUploadListDAO.getDataUploadAppr(map);
 	}
 
 

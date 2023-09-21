@@ -39,7 +39,12 @@ import egovframework.mdrt.vo.UserVo;
  */
 public interface DataUploadListService {
 	
-	public List<Map> getDataUploadList(DataUpdVo dataUpdVo) throws Exception;
+	public List<Map> getDataUploadList(Map<String, String> dataUpdVo) throws Exception;
+
+	public List<Map> getDataUploadDetail(DataUpdVo dataUpdSearch)throws Exception;
+
+	public void dataUploadAppr(Map<String, Object> map)throws Exception;
+
 	
 
 }

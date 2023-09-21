@@ -1,6 +1,7 @@
 package egovframework.mdrt.board.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +17,10 @@ public class BoardFileDAO extends EgovAbstractDAO{
 		public List<BoardFileVo> getBoardFileList() {
 			return (List<BoardFileVo>) list("BoardFileDAO.getBoardFileList");
 		}
+
+	public List<Map> getBoardFileList(Map<String, Object> mapVo) {
+		return (List<Map>) list("BoardFileDAO.getBoardFileList",mapVo);
+	}
 
 	
 	 	}

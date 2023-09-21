@@ -7,23 +7,117 @@
 		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
 
 
-	<resultMap id="BoardList" class="egovframework.mdrt.vo.BoardVo">
-		<result property="bordId" column="BORD_ID" columnIndex="1" />
-		<result property="bordGubun" column="BORD_GUBUN" columnIndex="2" />
-		<result property="bordTit" column="BORD_TIT" columnIndex="3" />
-		<result property="bordCont" column="BORD_CONT" columnIndex="4" />
-		<result property="insUsr" column="INS_USR" columnIndex="5" />
-		<result property="insDt" column="INS_DT" columnIndex="6" />
-		
-	</resultMap>
 
-
-	<select id="BoardDAO.getBoardList" resultMap="BoardList"
+	<select id="BoardDAO.getBoardList" resultClass="egovMap"
 		remapResults="true">
 
-		SELECT * FROM TB_BOARD
+		SELECT
+		tb.bord_id, tb.bord_gubun, tb.bord_tit, tb.bord_cont,
+		tb.ins_usr, tb.ins_dt,
+		tb.bord_cnt , count(tbf.file_nm) file_yn
+		<isEqual property="bordGubun" compareValue="erro">
+			, tb.pro_yn
+		</isEqual>
+		FROM
+		TB_BOARD tb left join tb_board_file tbf on tbf.bord_id =
+		tb.bord_id
+		WHERE
+		1=1
+		AND tb.BORD_GUBUN = #bordGubun#
+		<isNotEmpty property="title">
+				<![CDATA[	AND tb.BORD_TIT like concat('%', #title#, '%')		]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="cont">
+					<![CDATA[	AND BORD_CONT like concat('%', #cont#, '%')	]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="inst">
+					<![CDATA[	AND INS_USR like concat('%', #inst#, '%') 	]]>
+		</isNotEmpty>
+		<isEqual property="proYn" compareValue="N">
+			AND tb.pro_yn = 'N'
+		</isEqual>
+		<isEqual property="proYn" compareValue="Y">
+			AND tb.pro_yn = 'Y'
+		</isEqual>
+		GROUP BY
+		tb.bord_id, tb.bord_gubun, tb.bord_tit, tb.bord_cont,
+		tb.ins_usr, tb.ins_dt,
+		tb.bord_cnt
+		ORDER BY
+		tb.INS_DT LIMIT 10 OFFSET
+		(#pageNum# - 1) * 10;
 
 	</select>
+
+	<select id="BoardDAO.getBoardListCount" resultClass="int">
+		SELECT
+		COUNT(*)
+		FROM
+		TB_BOARD tb
+		WHERE
+		1=1
+		AND tb.BORD_GUBUN = #bordGubun#
+		<isNotEmpty property="title">
+				<![CDATA[	AND tb.BORD_TIT like concat('%', #title#, '%')	]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="cont">
+					<![CDATA[	AND BORD_CONT like concat('%', #cont#, '%')	]]>
+		</isNotEmpty>
+
+		<isNotEmpty property="inst">
+					<![CDATA[	AND INS_USR like concat('%', #inst#, '%') 	]]>
+		</isNotEmpty>
+		<isEqual property="proYn" compareValue="N">
+			AND tb.pro_yn = 'N'
+		</isEqual>
+		<isEqual property="proYn" compareValue="Y">
+			AND tb.pro_yn = 'Y'
+		</isEqual>
+		GROUP BY
+		tb.bord_gubun
+		ORDER BY
+		tb.bord_gubun LIMIT 10 OFFSET (#pageNum#
+		- 1) * 10;
+
+	</select>
+
+
+	<select id="BoardDAO.getBoardDetail" resultClass="egovMap"
+		remapResults="true">
+
+		SELECT
+		tb.bord_id, tb.bord_gubun, tb.bord_tit,
+		tb.bord_cont, tb.ins_usr, tb.ins_dt,
+		tb.bord_cnt
+		FROM
+		TB_BOARD tb
+		WHERE
+		1=1
+		AND bord_id = #bordId#
+	</select>
+
+	<update id="BoardDAO.getUpdateBordCnt">
+
+		UPDATE TB_BOARD SET
+		bord_cnt = bord_cnt + 1 WHERE
+		BORD_ID = #bordId#
+
+	</update>
+
+	<insert id="BoardDAO.getBoardInsert">
+
+		INSERT INTO TB_BOARD
+		(bord_gubun,bord_tit,bord_cont,ins_usr)
+		VALUES(#bordGubun#,#bordTit#,#bordCont#,#usrId#)
+
+	</insert>
+
+
+
+
 
 
 </sqlMap>            

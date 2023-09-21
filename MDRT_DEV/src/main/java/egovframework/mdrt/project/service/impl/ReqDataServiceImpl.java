@@ -21,7 +21,7 @@ public class ReqDataServiceImpl extends EgovAbstractServiceImpl implements ReqDa
 
 	
 	@Override
-	public List<UserVo> getReqData(UserVo userSearch) throws Exception {
+	public List<Map> getReqData(UserVo userSearch) throws Exception {
 		return reqDataDAO.getReqData(userSearch);
 	}
 

@@ -38,7 +38,6 @@ public class BusiServiceImpl extends EgovAbstractServiceImpl implements BusiServ
 
 	@Override
 	public int getBusiListCount(BusiVo busiSearch) throws Exception {
-		// TODO Auto-generated method stub
 		return busiDAO.getBusiListCount(busiSearch);
 	}
 

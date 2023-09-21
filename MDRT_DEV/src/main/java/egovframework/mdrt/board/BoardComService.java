@@ -16,6 +16,7 @@
 package egovframework.mdrt.board;
 
 import java.util.List;
+import java.util.Map;
 
 import egovframework.mdrt.vo.BoardComVo;
 
@@ -38,6 +39,10 @@ import egovframework.mdrt.vo.BoardComVo;
 public interface BoardComService {
 	
 	public List<BoardComVo> getBoardComList() throws Exception;
+
+	public List<Map> getBoardComList(Map<String, Object> mapVo);
+	
+	public void getBoardComInsert(Map<String, Object> mapVo);
 	
 
 }

@@ -7,22 +7,14 @@
 		type="egovframework.rte.psl.dataaccess.util.EgovMap" />
 
 
-	<resultMap id="BoardFileList" class="egovframework.mdrt.vo.BoardFileVo">
-		<result property="bordId" column="BORD_ID" columnIndex="1" />
-		<result property="bordGubun" column="BORD_GUBUN" columnIndex="2" />
-		<result property="bordTit" column="BORD_TIT" columnIndex="3" />
-		<result property="bordCont" column="BORD_CONT" columnIndex="4" />
-		<result property="insUsr" column="INS_USR" columnIndex="5" />
-		<result property="insDt" column="INS_DT" columnIndex="6" />
-		
+	<select id="BoardFileDAO.getBoardFileList" resultClass="egovMap">
 
-	</resultMap>
-
-
-	<select id="BoardFileDAO.getBoardFileList" resultMap="BoardFileList"
-		remapResults="true">
-
-		SELECT * FROM TB_BOARD_FILE
+		SELECT 
+			file_id, bord_id, bord_gubun, file_nm, file_path, file_vol, file_ext
+		FROM 
+			TB_BOARD_FILE 
+		WHERE 
+			BORD_ID = #bordId#
 
 	</select>
 

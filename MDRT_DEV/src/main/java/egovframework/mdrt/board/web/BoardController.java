@@ -1,6 +1,7 @@
 package egovframework.mdrt.board.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -41,19 +42,22 @@ public class BoardController {
 	@Resource(name = "boardComService")
 	protected BoardComService boardComService;
 			
-	@RequestMapping(value = "/boardList.json")
-	public ModelAndView boardList(HttpServletRequest request,HttpSession session, @RequestBody UserVo userVo) throws Exception {
+	@RequestMapping(value = "/boardList")
+	public ModelAndView boardList(HttpServletRequest request,HttpSession session, @RequestBody Map<String, Object> mapVo) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-		
-			List<BoardVo> boardSummary = boardService.getBoardList();           //게시판 조회
-			List<BoardFileVo>fileSummary = boardFileService.getBoardFileList();           //첨부파일조회
-			List<BoardComVo> boardComSummary = boardComService.getBoardComList();           //덧글 조회
 			
+			
+			//토탈카운트 및 총 페이징 적용 필요
+			//조건검색 ( 제목, 작성자, 내용)
+			List<Map> boardSummary = boardService.getBoardList(mapVo);           //게시판 조회
+			int contCnt = boardService.getBoardListCount(mapVo);           //게시판 조회
+			
+			//TODO 문의대상 확인필요 (ID 기준인지 , 권한 기준인지, 왜있어야 하는지)
 		
 			modelAndView.addObject("resultList", boardSummary);
-			modelAndView.addObject("resultList", fileSummary);
-			modelAndView.addObject("resultList", boardComSummary);
+			modelAndView.addObject("resultListCnt", contCnt);
+			
 			
 			modelAndView.setViewName("jsonView");
 			
@@ -64,4 +68,74 @@ public class BoardController {
 
 		return modelAndView;
 	}
+	// 게시판  상세보기 
+	@RequestMapping(value = "/boardDetail")
+	public ModelAndView boardDetail(HttpServletRequest request,HttpSession session, @RequestBody Map<String, Object> mapVo) throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			//토탈카운트 및 총 페이징 적용 필요
+			//조건검색 ( 제목, 작성자, 내용)
+			boardService.getUpdateBordCnt(mapVo);//조회수 증가
+			
+			Map<String, Object> boardOne = boardService.getBoardDetail(mapVo);           //게시판 상세조회
+			List<Map> boarFileList = boardFileService.getBoardFileList(mapVo);
+			
+			modelAndView.addObject("resultList", boardOne);
+			modelAndView.addObject("resultFileList", boarFileList);
+			
+			if(mapVo.get("bordGubun").equals("ques")) {
+				List<Map> boarComList = boardComService.getBoardComList(mapVo);
+				modelAndView.addObject("resultComList", boarComList);
+			}
+			
+			
+			
+			modelAndView.setViewName("jsonView");
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}
+
+		return modelAndView;
+	}
+	
+	//게시판 입력
+	@RequestMapping(value = "/boardInsert")
+	public ModelAndView boardInsert(HttpServletRequest request,HttpSession session, @RequestBody Map<String, Object> mapVo) throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			
+			boardService.getBoardInsert(mapVo);  
+			
+			
+			modelAndView.setViewName("jsonView");
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}
+
+		return modelAndView;
+	}
+	
+	//덧글 입력
+	//게시판 입력
+	@RequestMapping(value = "/boardComInsert")
+	public ModelAndView boardComInsert(HttpServletRequest request,HttpSession session, @RequestBody Map<String, Object> mapVo) throws Exception {
+		ModelAndView modelAndView = new ModelAndView();
+		try {
+			
+			boardComService.getBoardComInsert(mapVo);  
+			
+			
+			modelAndView.setViewName("jsonView");
+			
+		}catch(Exception e){
+			System.out.println(e);
+		}
+
+		return modelAndView;
+	}
+	
+	
+
 }

@@ -1,6 +1,7 @@
 package egovframework.mdrt.board.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -24,6 +25,19 @@ public class BoardComServiceImpl extends EgovAbstractServiceImpl implements Boar
 	@Override
 	public List<BoardComVo> getBoardComList() throws Exception {
 		return boardComDAO.getBoardComList();
+	}
+
+
+	@Override
+	public List<Map> getBoardComList(Map<String, Object> mapVo) {
+		return boardComDAO.getBoardComList(mapVo);
+	}
+
+
+	@Override
+	public void getBoardComInsert(Map<String, Object> mapVo) {
+		boardComDAO.getBoardComInsert(mapVo);
+		
 	}
 
 

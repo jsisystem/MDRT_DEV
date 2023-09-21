@@ -13,8 +13,8 @@ import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
 public class ReqDataDAO extends EgovAbstractDAO {
 	@SuppressWarnings("unchecked")
 
-	public List<UserVo> getReqData(UserVo userSearch) {
-		return (List<UserVo>) list("ReqDataDAO.getReqData", userSearch);
+	public List<Map> getReqData(UserVo userSearch) {
+		return (List<Map>) list("ReqDataDAO.getReqData", userSearch);
 	}
 
 	public Map<String, Integer> getApprReqCnt(ReqDataVo aprAuth) {
